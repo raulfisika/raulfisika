@@ -9,6 +9,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script>
+        // Cek status login dan ubah tombol
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        const loginButton = document.getElementById('loginButton');
+
+        if (isLoggedIn) {
+            loginButton.textContent = 'Keluar';
+            loginButton.addEventListener('click', () => {
+                // Proses logout
+                sessionStorage.removeItem('isLoggedIn');
+                window.location.reload(); // Reload untuk memperbarui tampilan tombol
+            });
+        } else {
+            loginButton.textContent = 'Masuk';
+            loginButton.addEventListener('click', () => {
+                // Simulasikan login
+                sessionStorage.setItem('isLoggedIn', 'true');
+                window.location.reload(); // Reload untuk memperbarui tampilan tombol
+            });
+        }
+    </script>
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
