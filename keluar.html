@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keluar - Fisika Arcana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4a2b6b 0%, #1a2b4d 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .btn-fantasy {
+      background: linear-gradient(to right, #7f00ff, #e100ff);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      box-shadow: 0 4px 20px rgba(127, 0, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-fantasy:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #6a00ff, #d600ff);
+      box-shadow: 0 4px 25px rgba(127, 0, 255, 0.6);
+    }
+
+    .container {
+      background: rgba(26, 43, 77, 0.7);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      box-shadow: 0 0 20px rgba(74, 43, 107, 0.5);
+      padding: 2rem 3rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+
+    .container h1 {
+      font-family: 'Cinzel', serif;
+    }
+
+    .arcane-symbol {
+      position: absolute;
+      opacity: 0.1;
+      font-size: 5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="arcane-symbol" style="top: 2rem; left: 2rem;">⚗️</div>
+  <div class="arcane-symbol" style="bottom: 2rem; right: 2rem;">🧪</div>
+
+  <div class="container">
+    <h1 class="text-3xl font-bold text-yellow-300 mb-4">Kamu telah keluar</h1>
+    <p class="mb-6 text-blue-100">Kamu telah berhasil keluar dari akun Fisika Arcana.</p>
+    <a href="Masuk.html" class="btn-fantasy">Kembali ke Login</a>
+  </div>
+
+</body>
+</html>

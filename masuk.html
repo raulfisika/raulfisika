@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk - Fisika Arcana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cinzel': ['Cinzel', 'serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'arcane-blue': '#1a2b4d',
+                        'arcane-purple': '#4a2b6b',
+                        'arcane-gold': '#d4af37',
+                        'arcane-magenta': '#9b4dca',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #4a2b6b 0%, #1a2b4d 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .magic-glow {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.7), 
+                         0 0 20px rgba(212, 175, 55, 0.5), 
+                         0 0 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-hover-effect:hover {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 
+                        0 0 25px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        .Masuk-container {
+            background: rgba(26, 43, 77, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 20px rgba(74, 43, 107, 0.5);
+        }
+        
+        .arcane-symbol {
+            position: absolute;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #d4af37;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: #d4af37;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.show {
+                display: flex;
+            }
+        }
+        
+        .form-input {
+            background: rgba(26, 43, 77, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .Masuk-button {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .Masuk-button:hover {
+            background: linear-gradient(135deg, #e5c158 0%, #d4af37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body class="font-poppins text-white flex flex-col min-h-screen">
+    <div id="tsparticles" class="fixed inset-0 -z-10"></div>
+    
+    <!-- Arcane symbols background -->
+    <div class="arcane-symbol text-[120px] top-10 left-10 rotate-12">⚗️</div>
+    <div class="arcane-symbol text-[100px] bottom-20 right-10 -rotate-12">⚛️</div>
+    <div class="arcane-symbol text-[80px] top-1/3 right-20 rotate-45">🔮</div>
+    <div class="arcane-symbol text-[90px] bottom-40 left-20 -rotate-25">🧪</div>
+    
+    <!-- Navigation Header -->
+    <header class="bg-gradient-to-r from-arcane-purple/80 to-arcane-blue/80 backdrop-blur-md py-4 px-6 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto">
+            <nav class="flex flex-wrap items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="font-cinzel font-bold text-2xl text-arcane-gold magic-glow">Fisika Arcana</span>
+                </a>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md hover:bg-arcane-purple/50">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-arcane-gold transition-colors duration-300">Beranda</a>
+                    <a href="Permainan.html" class="nav-link text-white hover:text-arcane-gold transition-colors duration-300">Permainan</a>
+                    <a href="profile.html" class="nav-link text-white hover:text-arcane-gold transition-colors duration-300">Profil</a>
+                    <a href="Masuk.html" class="nav-link active text-arcane-gold transition-colors duration-300">Masuk</a>
+                </div>
+                
+                <!-- Mobile Navigation -->
+                <div id="mobile-menu" class="mobile-menu w-full md:hidden flex flex-col items-center space-y-4 mt-4">
+                    <a href="index.html" class="nav-link text-white hover:text-arcane-gold transition-colors duration-300 w-full text-center py-2">Beranda</a>
+                    <a href="Permainan.html" class="nav-link text-white hover:text-arcane-gold transition-colors duration-300 w-full text-center py-2">Permainan</a>
+                    <a href="profile.html" class="nav-link text-white hover:text-arcane-gold transition-colors duration-300 w-full text-center py-2">Profil</a>
+                    <a href="Masuk.html" class="nav-link active text-arcane-gold transition-colors duration-300 w-full text-center py-2">Masuk</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex-grow container mx-auto px-4 py-12 flex flex-col items-center justify-center">
+        <div class="w-full max-w-md">
+            <div class="Masuk-container rounded-2xl p-8 md:p-10 relative">
+                <!-- Decorative elements -->
+                <div class="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-arcane-gold/50 rounded-tl-lg"></div>
+                <div class="absolute -top-6 -right-6 w-12 h-12 border-t-2 border-r-2 border-arcane-gold/50 rounded-tr-lg"></div>
+                <div class="absolute -bottom-6 -left-6 w-12 h-12 border-b-2 border-l-2 border-arcane-gold/50 rounded-bl-lg"></div>
+                <div class="absolute -bottom-6 -right-6 w-12 h-12 border-b-2 border-r-2 border-arcane-gold/50 rounded-br-lg"></div>
+                
+                <div class="text-center mb-8">
+                    <h2 class="font-cinzel text-3xl font-bold text-arcane-gold magic-glow">Masuk ke Portal</h2>
+                    <p class="text-blue-200 mt-2">Masukkan kredensial sihirmu untuk melanjutkan</p>
+                </div>
+                
+                <form action="cek_login.php" method="POST">
+                    <div class="mb-6">
+                        <label for="username" class="block text-sm font-medium text-blue-200 mb-2">Nama Pengguna</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-arcane-gold/70" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input type="text" id="username" name="username" class="form-input pl-10 pr-4 py-3 w-full rounded-lg" placeholder="Masukkan nama pengguna" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <label for="password" class="block text-sm font-medium text-blue-200 mb-2">Kata Sandi</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-arcane-gold/70" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input type="password" id="password" name="password" class="form-input pl-10 pr-4 py-3 w-full rounded-lg" placeholder="Masukkan kata sandi" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="Masuk-button w-full py-3 px-4 rounded-lg text-arcane-blue font-bold text-lg">
+                        Masuk
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-blue-200">
+                        Belum punya akun? 
+                        <a href="register.html" class="text-arcane-gold hover:underline transition-all">
+                            Daftar sekarang
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-arcane-blue/90 to-arcane-purple/90 backdrop-blur-md py-4 px-6 shadow-lg mt-12">
+        <div class="container mx-auto text-center">
+            <p class="text-blue-200/70">© 2025 Fisika Arcana | Dikembangkan oleh Raul Arrafi</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize tsParticles
+            await tsParticles.load("tsparticles", {
+                fullScreen: {
+                    enable: true,
+                    zIndex: -10
+                },
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: ["#d4af37", "#9370DB", "#4a2b6b", "#9b4dca"]
+                    },
+                    shape: {
+                        type: "circle"
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 2,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#d4af37",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: {
+                            enable: true,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 0.5
+                            }
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('show');
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b3cab783094002',t:'MTc0NjQ4NTM3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
